@@ -72,30 +72,41 @@ npm run preview
 
 ## GitHub Pages deployment
 
-The base path is configured in one place: [`vite.config.js`](vite.config.js) reads `process.env.VITE_BASE` and defaults to `/` for local development.
-
-The GitHub Actions workflow at [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds on pushes to `main` and sets:
-
-```text
-VITE_BASE=/${{ github.event.repository.name }}/
-```
-
-That matches a project site such as `https://USERNAME.github.io/impostor-who-by-driner/`.
-
-To enable Pages:
-
-1. Push this repository to GitHub.
-2. Open **Settings → Pages**.
-3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
-4. Push to `main` (or run the **Deploy to GitHub Pages** workflow manually).
-5. Wait for the workflow to finish, then open the Pages URL.
-
-If the site is hosted at the root of a user or organization site (`https://USERNAME.github.io/`), set `VITE_BASE=/` in the workflow instead.
-
-To use a different project folder name, change `VITE_BASE` only in the workflow or when you run a local production build:
+Deploy from your machine with:
 
 ```bash
-VITE_BASE=/impostor-who/ npm run build
+npm run deploy
+```
+
+That command:
+
+1. Reads the GitHub repo name from `origin` and sets `VITE_BASE` (for this repo, `/impostor-who-by-dri/`)
+2. Builds the production site into `dist/`
+3. Pushes `dist/` to the `gh-pages` branch
+
+The live site is `https://USERNAME.github.io/REPO_NAME/`, currently [https://drineruu.github.io/impostor-who-by-dri/](https://drineruu.github.io/impostor-who-by-dri/).
+
+Daily loop:
+
+```bash
+npm run dev          # edit and preview locally
+npm run deploy       # publish the current build to GitHub Pages
+```
+
+`npm run deploy` publishes the build. It does not commit your source on `main`. Commit and push `main` when you want the code saved on GitHub.
+
+One-time Pages setup:
+
+1. Push this repository to GitHub.
+2. Run `npm run deploy` once so the `gh-pages` branch exists.
+3. Open **Settings → Pages**.
+4. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
+5. Set **Branch** to `gh-pages` and `/ (root)`, then save.
+
+The base path is configured in one place: [`vite.config.js`](vite.config.js) reads `process.env.VITE_BASE` and defaults to `/` for local development. Override it only if you need a different folder:
+
+```bash
+VITE_BASE=/impostor-who/ npm run deploy
 ```
 
 Do not hardcode GitHub Pages paths in Vue components.
