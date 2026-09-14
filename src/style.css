@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Trebuchet MS", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --color-ink: #0b0818;
+  --color-ink-soft: #140f27;
+  --color-panel: #1b1633;
+  --color-panel-edge: #3a3160;
+  --color-gold: #f4c14a;
+  --color-gold-dark: #c4921e;
+  --color-impostor: #ff4d6d;
+  --color-crew: #5eead4;
+  --color-muted: #b9b0d4;
+  --color-danger: #fb7185;
+}
+
+html,
+body {
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(244, 193, 74, 0.12), transparent 50%),
+    radial-gradient(800px 500px at 100% 100%, rgba(255, 77, 109, 0.08), transparent 45%),
+    linear-gradient(180deg, var(--color-ink-soft), var(--color-ink));
+  color: #f8f5ff;
+  font-family: var(--font-sans);
+}
+
+#app {
+  min-height: 100dvh;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+.touch-none {
+  touch-action: none;
+}
+
+.fade-up {
+  animation: fade-up 280ms ease-out;
+}
+
+.swipe-chevron {
+  animation: swipe-nudge 1.6s ease-in-out infinite;
+}
+
+@keyframes swipe-nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

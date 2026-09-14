@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Impostor Who?">
+  <rect width="64" height="64" rx="16" fill="#0b0818"/>
+  <circle cx="32" cy="32" r="22" fill="#17122b" stroke="#f4c14a" stroke-width="3"/>
+  <text x="32" y="42" text-anchor="middle" font-size="32" font-family="Trebuchet MS, Arial, sans-serif" font-weight="700" fill="#f4c14a">?</text>
+</svg>
