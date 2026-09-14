@@ -1,6 +1,7 @@
 export const PHASES = {
   HOME: 'HOME',
   HOW_TO_PLAY: 'HOW_TO_PLAY',
+  WRITE_REVIEW: 'WRITE_REVIEW',
   PLAYER_SETUP: 'PLAYER_SETUP',
   SETTINGS: 'SETTINGS',
   ROLE_REVEAL: 'ROLE_REVEAL',
@@ -120,12 +121,36 @@ export function getCategories(words) {
   return [...new Set(words.map((item) => item.category))].sort()
 }
 
-export function filterWords(words, category = 'All', difficulty = 'All') {
+export function normalizeCategorySelection(selected, allCategories) {
+  const available = Array.isArray(allCategories) ? allCategories : []
+  if (!Array.isArray(selected)) return [...available]
+  return available.filter((category) => selected.includes(category))
+}
+
+export function formatCategorySummary(selected, allCategories) {
+  const chosen = normalizeCategorySelection(selected, allCategories)
+  if (allCategories.length === 0) return 'No categories'
+  if (chosen.length === 0) return 'None selected'
+  if (chosen.length === allCategories.length) return 'All categories'
+  if (chosen.length <= 2) return chosen.join(', ')
+  return `${chosen.length} categories`
+}
+
+export function filterWords(words, categories = 'All', difficulty = 'All') {
   if (!Array.isArray(words)) return []
+
+  const selected =
+    categories === 'All' || categories == null
+      ? 'All'
+      : typeof categories === 'string'
+        ? [categories]
+        : Array.isArray(categories)
+          ? categories
+          : []
 
   return words.filter((item) => {
     if (!item || typeof item.word !== 'string' || !item.word.trim()) return false
-    const categoryOk = category === 'All' || item.category === category
+    const categoryOk = selected === 'All' || selected.includes(item.category)
     const difficultyOk = difficulty === 'All' || item.difficulty === difficulty
     return categoryOk && difficultyOk
   })

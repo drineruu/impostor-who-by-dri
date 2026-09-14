@@ -21,7 +21,7 @@ const {
 </script>
 
 <template>
-  <section class="mx-auto flex w-full max-w-md flex-1 flex-col px-5 py-6">
+  <section class="mx-auto flex w-full max-w-md flex-col px-5 py-6">
     <div class="flex items-end justify-between gap-3">
       <h1 class="text-3xl font-black tracking-tight">Players</h1>
       <p class="text-sm font-bold text-gold" aria-live="polite">

@@ -1,27 +1,44 @@
 <script setup>
+import { ref } from 'vue'
 import { DIFFICULTIES } from '../utils/gameUtils.js'
 import { useGame } from '../composables/useGame.js'
+import CategoryPickerModal from './CategoryPickerModal.vue'
 import PrimaryButton from './PrimaryButton.vue'
+import SelectMenu from './SelectMenu.vue'
 
 const {
   settings,
   players,
   categories,
+  selectedCategories,
+  categorySummary,
   matchingWordCount,
   maxImpostors,
   suggestedImpostorCount,
   settingsError,
-  setCategory,
+  toggleCategory,
+  selectAllCategories,
+  clearCategories,
   setDifficulty,
   setImpostorCount,
   setHideImpostorHint,
   beginGame,
   backToSetup,
 } = useGame()
+
+const categoryPickerOpen = ref(false)
+
+const difficultyOptions = [
+  { value: 'All', label: 'All' },
+  ...DIFFICULTIES.map((difficulty) => ({
+    value: difficulty,
+    label: difficulty[0].toUpperCase() + difficulty.slice(1),
+  })),
+]
 </script>
 
 <template>
-  <section class="mx-auto flex w-full max-w-md flex-1 flex-col px-5 py-6">
+  <section class="mx-auto flex w-full max-w-md flex-col px-5 py-6">
     <h1 class="text-3xl font-black tracking-tight">Game Settings</h1>
     <p class="mt-2 text-sm text-muted">Choose how this round should feel.</p>
 
@@ -83,34 +100,26 @@ const {
       </fieldset>
 
       <div>
-        <label for="category" class="text-sm font-bold tracking-wide text-gold uppercase">Category</label>
-        <select
-          id="category"
-          :value="settings.category"
-          class="mt-2 min-h-14 w-full rounded-2xl border border-panel-edge bg-panel px-4 text-base text-white"
-          @change="setCategory($event.target.value)"
+        <p class="text-sm font-bold tracking-wide text-gold uppercase">Categories</p>
+        <button
+          type="button"
+          class="mt-2 flex min-h-14 w-full items-center justify-between gap-3 rounded-2xl border border-panel-edge bg-panel px-4 text-left text-base text-white hover:border-gold"
+          aria-haspopup="dialog"
+          :aria-expanded="categoryPickerOpen"
+          @click="categoryPickerOpen = true"
         >
-          <option value="All">All</option>
-          <option v-for="category in categories" :key="category" :value="category">
-            {{ category }}
-          </option>
-        </select>
+          <span>{{ categorySummary }}</span>
+          <span class="text-gold" aria-hidden="true">Choose</span>
+        </button>
       </div>
 
-      <div>
-        <label for="difficulty" class="text-sm font-bold tracking-wide text-gold uppercase">Difficulty</label>
-        <select
-          id="difficulty"
-          :value="settings.difficulty"
-          class="mt-2 min-h-14 w-full rounded-2xl border border-panel-edge bg-panel px-4 text-base text-white"
-          @change="setDifficulty($event.target.value)"
-        >
-          <option value="All">All</option>
-          <option v-for="difficulty in DIFFICULTIES" :key="difficulty" :value="difficulty">
-            {{ difficulty }}
-          </option>
-        </select>
-      </div>
+      <SelectMenu
+        id="difficulty"
+        label="Difficulty"
+        :model-value="settings.difficulty"
+        :options="difficultyOptions"
+        @update:model-value="setDifficulty"
+      />
 
       <p class="text-sm text-muted" aria-live="polite">
         {{ matchingWordCount }} word{{ matchingWordCount === 1 ? '' : 's' }} match these filters.
@@ -127,5 +136,15 @@ const {
       </PrimaryButton>
       <PrimaryButton variant="ghost" @click="backToSetup">Back</PrimaryButton>
     </div>
+
+    <CategoryPickerModal
+      :open="categoryPickerOpen"
+      :categories="categories"
+      :selected="selectedCategories"
+      @close="categoryPickerOpen = false"
+      @toggle="toggleCategory"
+      @select-all="selectAllCategories"
+      @clear="clearCategories"
+    />
   </section>
 </template>

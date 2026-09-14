@@ -13,7 +13,7 @@ const impostorLabel = computed(() => (multiple.value ? 'Impostors' : 'Impostor')
 </script>
 
 <template>
-  <section class="mx-auto flex w-full max-w-md flex-1 flex-col px-5 py-8 text-center">
+  <section class="mx-auto flex w-full max-w-md flex-col px-5 py-8 text-center">
     <p class="text-sm font-bold tracking-[0.24em] text-gold uppercase">Game over</p>
     <h1 class="mt-4 text-3xl font-black tracking-tight">{{ heading }}</h1>
     <ul class="mt-6 space-y-3" :aria-label="impostorLabel">

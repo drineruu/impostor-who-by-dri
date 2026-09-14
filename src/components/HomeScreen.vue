@@ -2,11 +2,11 @@
 import { useGame } from '../composables/useGame.js'
 import PrimaryButton from './PrimaryButton.vue'
 
-const { startFromHome, goHowToPlay } = useGame()
+const { startFromHome, goHowToPlay, goWriteReview } = useGame()
 </script>
 
 <template>
-  <section class="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-5 py-10 text-center">
+  <section class="mx-auto flex w-full max-w-md grow flex-col justify-center px-5 py-10 text-center">
     <p class="text-sm font-bold tracking-[0.28em] text-gold uppercase">by Dri</p>
     <h1 class="mt-3 text-5xl font-black leading-none tracking-tight text-white">
       Impostor Who?
@@ -17,6 +17,7 @@ const { startFromHome, goHowToPlay } = useGame()
     <div class="mt-10 flex flex-col gap-3">
       <PrimaryButton @click="startFromHome">Start Game</PrimaryButton>
       <PrimaryButton variant="secondary" @click="goHowToPlay">How to Play</PrimaryButton>
+      <PrimaryButton variant="ghost" @click="goWriteReview">Write a review</PrimaryButton>
     </div>
   </section>
 </template>

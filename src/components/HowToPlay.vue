@@ -17,7 +17,7 @@ const steps = [
 </script>
 
 <template>
-  <section class="mx-auto flex w-full max-w-md flex-1 flex-col px-5 py-6">
+  <section class="mx-auto flex w-full max-w-md flex-col px-5 py-6">
     <h1 class="text-3xl font-black tracking-tight">How to Play</h1>
     <ol class="mt-6 space-y-4">
       <li
@@ -32,7 +32,7 @@ const steps = [
       </li>
     </ol>
     <p class="mt-6 text-sm leading-relaxed text-muted">
-      You can discuss and decide who you suspect yourselves. This app does not manage voting.
+      You can discuss and decide who you suspect yourselves.
     </p>
     <div class="mt-8">
       <PrimaryButton variant="secondary" @click="goHome">Back</PrimaryButton>

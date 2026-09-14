@@ -6,7 +6,7 @@ const { requestReveal, requestQuit, starterName, showImpostorHint } = useGame()
 </script>
 
 <template>
-  <section class="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-5 py-8 text-center">
+  <section class="mx-auto flex w-full max-w-md grow flex-col justify-center px-5 py-8 text-center">
     <p class="text-sm font-bold tracking-[0.24em] text-gold uppercase">Game started</p>
     <h1 class="mt-4 text-4xl font-black tracking-tight">{{ starterName }} starts!</h1>
     <p class="mt-6 text-base leading-relaxed text-muted">

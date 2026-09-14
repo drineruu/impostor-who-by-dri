@@ -29,7 +29,8 @@ const emit = defineEmits(['seen', 'closed'])
 const CARD_HEIGHT = 340
 const OPEN_OFFSET = -(CARD_HEIGHT - 28)
 const THRESHOLD = 88
-const VIEW_MS = 4000
+/** How long the role stays visible after reveal, in milliseconds. */
+const VIEW_MS = 1500
 
 const startY = ref(0)
 const dragOffset = ref(0)
@@ -164,8 +165,47 @@ onBeforeUnmount(() => {
       @keydown.enter.prevent="revealWithKeyboard"
       @keydown.space.prevent="revealWithKeyboard"
     >
-      <span class="mb-4 h-1.5 w-12 rounded-full bg-gold/80" aria-hidden="true"></span>
-      <span class="swipe-chevron text-3xl leading-none text-gold" aria-hidden="true">▲</span>
+      <span class="mb-5 h-1.5 w-12 rounded-full bg-gold/80" aria-hidden="true"></span>
+      <span
+        class="swipe-cue text-gold"
+        :class="{ 'swipe-cue-paused': isDragging || isOpen }"
+        aria-hidden="true"
+      >
+        <svg viewBox="0 0 48 88" class="h-28 w-16" fill="none">
+          <path
+            class="swipe-chevron swipe-chevron-1"
+            d="M16 14 L24 6 L32 14"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            class="swipe-chevron swipe-chevron-2"
+            d="M16 23 L24 15 L32 23"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <g class="swipe-hand">
+            <!-- Hand paths based on Lucide Icons (ISC License): https://lucide.dev -->
+            <g
+              transform="translate(3.5 34) scale(1.7)"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2" />
+              <path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2" />
+              <path d="M10 9.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8" />
+              <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15" />
+            </g>
+          </g>
+        </svg>
+      </span>
       <span class="mt-3 text-lg font-black tracking-tight text-white">Swipe up</span>
       <span class="mt-2 text-sm text-muted">to see your role</span>
     </button>

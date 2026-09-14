@@ -30,7 +30,7 @@ function onRoleSeen() {
 }
 
 function focusHeading() {
-  headingRef.value?.focus()
+  headingRef.value?.focus({ preventScroll: true })
 }
 
 onMounted(focusHeading)
@@ -41,7 +41,7 @@ watch([revealStep, currentPlayerIndex], () => {
 </script>
 
 <template>
-  <section class="mx-auto flex w-full max-w-md flex-1 flex-col px-5 py-4">
+  <section class="mx-auto flex w-full max-w-md grow flex-col px-5 py-4">
     <div class="flex justify-end">
       <button
         type="button"
@@ -54,14 +54,11 @@ watch([revealStep, currentPlayerIndex], () => {
       </button>
     </div>
 
-    <div class="flex flex-1 flex-col justify-center py-4">
+    <div class="flex min-h-0 flex-1 flex-col justify-center py-4">
       <div v-if="revealStep === 'everyoneReady'" class="fade-up rounded-3xl border border-panel-edge bg-panel p-6 text-center">
-        <p class="text-sm font-bold tracking-[0.24em] text-gold uppercase">Everyone has their role</p>
-        <h1 ref="headingRef" tabindex="-1" class="mt-4 text-3xl font-black tracking-tight">
-          Everyone has seen their role.
-        </h1>
-        <p class="mt-6 text-sm font-bold tracking-[0.24em] text-gold uppercase">Starts the round</p>
-        <p class="mt-3 text-4xl font-black text-white">{{ starterName }}</p>
+        <p class="text-2xl font-bold tracking-[0.24em] text-gold uppercase">Everyone has their role!</p>
+        <!-- <p class="mt-6 text-sm font-bold tracking-[0.24em] text-gold uppercase">Starts the round</p> -->
+        <p class="mt-12 text-xl font-black text-white"><span class="font-bold text-gold">{{ starterName }}</span> will start the round.</p>
         <p class="mt-4 text-base text-muted">
           {{
             showImpostorHint
@@ -92,18 +89,24 @@ watch([revealStep, currentPlayerIndex], () => {
           />
         </div>
 
-        <p class="mt-4 min-h-6 text-sm text-muted" aria-live="polite">
-          <template v-if="isCardOpen">Memorize it — the card hides itself in a moment.</template>
-          <template v-else-if="!hasSeenCurrentRole">Swipe up to see your role first.</template>
-          <template v-else>Role hidden. Pass the phone when you're ready.</template>
+        <p class="mt-4 flex min-h-10 items-center justify-center text-sm text-muted" aria-live="polite">
+          <template v-if="isCardOpen">Memorize it! The card hides itself in a moment.</template>
+          <template v-else-if="!hasSeenCurrentRole">Swipe up to see your role.</template>
+          <template v-else>Pass the phone when you're ready.</template>
         </p>
-
-        <div class="mt-4">
-          <PrimaryButton :disabled="!hasSeenCurrentRole" @click="passToNextPlayer">
-            {{ isLastPlayer ? 'Continue' : `Pass to ${nextPlayerName}` }}
-          </PrimaryButton>
-        </div>
       </div>
+    </div>
+
+    <div v-if="revealStep !== 'everyoneReady'" class="h-14 shrink-0 overflow-anchor-none">
+      <Transition name="pass-btn" :duration="{ enter: 280, leave: 0 }">
+        <PrimaryButton
+          v-if="hasSeenCurrentRole"
+          :key="currentPlayerIndex"
+          @click="passToNextPlayer"
+        >
+          {{ isLastPlayer ? 'Continue' : `Pass to ${nextPlayerName}` }}
+        </PrimaryButton>
+      </Transition>
     </div>
   </section>
 </template>

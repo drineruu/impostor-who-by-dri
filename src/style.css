@@ -17,7 +17,14 @@
 html,
 body {
   min-height: 100%;
-  overflow-x: hidden;
+  max-width: 100%;
+  overflow: visible;
+}
+
+html.game-locked,
+html.game-locked body,
+html.game-locked #app {
+  overscroll-behavior-y: none;
 }
 
 body {
@@ -31,7 +38,9 @@ body {
 }
 
 #app {
-  min-height: 100dvh;
+  min-height: 100svh;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 button:focus-visible,
@@ -50,19 +59,45 @@ select:focus-visible {
   animation: fade-up 280ms ease-out;
 }
 
-.swipe-chevron {
-  animation: swipe-nudge 1.6s ease-in-out infinite;
+.swipe-cue {
+  display: block;
 }
 
-@keyframes swipe-nudge {
+.swipe-chevron {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: swipe-chevron 1.7s ease-in-out infinite;
+}
+
+.swipe-chevron-2 {
+  animation-delay: 0.12s;
+}
+
+.swipe-hand {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: swipe-hand 1.7s ease-in-out infinite;
+}
+
+@keyframes swipe-chevron {
   0%,
   100% {
-    transform: translateY(0);
-    opacity: 0.7;
+    opacity: 0.45;
+    transform: translateY(3px);
+  }
+  45% {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes swipe-hand {
+  0%,
+  100% {
+    transform: translateY(5px);
   }
   50% {
-    transform: translateY(-8px);
-    opacity: 1;
+    transform: translateY(-7px);
   }
 }
 
@@ -74,5 +109,33 @@ select:focus-visible {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.pass-btn-enter-active {
+  transition: opacity 280ms ease-out;
+}
+
+.pass-btn-enter-from {
+  opacity: 0;
+}
+
+.pass-btn-leave-active {
+  transition: none;
+}
+
+.overflow-anchor-none {
+  overflow-anchor: none;
+}
+
+.swipe-cue-paused .swipe-chevron,
+.swipe-cue-paused .swipe-hand {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swipe-chevron,
+  .swipe-hand {
+    animation: none;
   }
 }

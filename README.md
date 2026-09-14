@@ -2,7 +2,7 @@
 
 A mobile-friendly, pass-the-phone social deduction party game. Most players secretly see the same word. One or more players are impostors and do not. After everyone has looked, put the phone down and play the rest of the game yourselves.
 
-This is a static frontend app. It has no backend, database, accounts, or network calls for gameplay, and it can be deployed to GitHub Pages.
+Play now at https://drineruu.github.io/impostor-who-by-dri
 
 ## Game description
 
@@ -37,7 +37,7 @@ The app does **not** manage clues, discussion, or voting. Those happen around th
 - Home screen and How to Play
 - Player setup with add, remove, edit, and reorder
 - 24-hour localStorage cache for player names only
-- Category, difficulty, and impostor-hint settings
+- Categories, difficulty, and impostor-hint settings
 - Random secret word, impostor assignment, and round starter
 - Pass-the-phone role reveal with a hidden transition between players
 - Game started, reveal confirmation, results, Play Again, New Game, and Quit
@@ -136,7 +136,7 @@ Edit [`src/data/words.json`](src/data/words.json). Words are grouped by category
 
 - `word` is the secret word shown to normal players.
 - `hint` is the related word shown to impostors, unless **Hide hint from impostors** is on.
-- Category names are the object keys. They appear automatically in Game Settings.
+- Category names are the object keys. They appear automatically in Game Settings, where you can select any mix of categories.
 - A category can be a list of words, or grouped lists (like Bible Characters, Places, and Events). Grouped lists still count as one category.
 - `difficulty` must be `easy`, `medium`, or `hard`.
 

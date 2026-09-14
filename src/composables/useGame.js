@@ -8,16 +8,19 @@ import {
   createEmptyPlayers,
   filterWords,
   flattenWords,
+  formatCategorySummary,
   getCategories,
   getDefaultImpostorCount,
+  normalizeCategorySelection,
   pickImpostorIndexes,
   pickRandomWord,
   pickStarterIndex,
   validatePlayers,
 } from '../utils/gameUtils.js'
+import { loadCachedPlayers, saveCachedPlayers } from './usePlayerStorage.js'
 
 const wordsData = flattenWords(wordsFile)
-import { loadCachedPlayers, saveCachedPlayers } from './usePlayerStorage.js'
+const allCategories = getCategories(wordsData)
 
 function restorePlayers() {
   const cached = loadCachedPlayers().slice(0, MAX_PLAYERS)
@@ -34,7 +37,7 @@ function createState() {
     phase: PHASES.HOME,
     players,
     settings: {
-      category: 'All',
+      selectedCategories: [...allCategories],
       difficulty: 'All',
       impostorCount: getDefaultImpostorCount(namedCount),
       hideImpostorHint: false,
@@ -72,7 +75,11 @@ function resetRoundState() {
 }
 
 function startRound() {
-  const filtered = filterWords(wordsData, state.settings.category, state.settings.difficulty)
+  const filtered = filterWords(
+    wordsData,
+    state.settings.selectedCategories,
+    state.settings.difficulty,
+  )
   if (filtered.length === 0) {
     state.settingsError = 'No words match those filters. Try a different category or difficulty.'
     return false
@@ -124,9 +131,16 @@ export function useGame() {
   )
   const showImpostorHint = computed(() => !state.settings.hideImpostorHint)
   const suggestedImpostorCount = computed(() => getDefaultImpostorCount(state.players.length))
-  const categories = computed(() => getCategories(wordsData))
+  const categories = computed(() => allCategories)
+  const selectedCategories = computed(() =>
+    normalizeCategorySelection(state.settings.selectedCategories, allCategories),
+  )
+  const categorySummary = computed(() =>
+    formatCategorySummary(state.settings.selectedCategories, allCategories),
+  )
   const matchingWordCount = computed(
-    () => filterWords(wordsData, state.settings.category, state.settings.difficulty).length,
+    () =>
+      filterWords(wordsData, state.settings.selectedCategories, state.settings.difficulty).length,
   )
   const maxImpostors = computed(() => Math.max(1, state.players.length - 1))
   const canAddPlayer = computed(() => state.players.length < MAX_PLAYERS)
@@ -154,6 +168,10 @@ export function useGame() {
 
   function goHowToPlay() {
     state.phase = PHASES.HOW_TO_PLAY
+  }
+
+  function goWriteReview() {
+    state.phase = PHASES.WRITE_REVIEW
   }
 
   function startFromHome() {
@@ -223,8 +241,21 @@ export function useGame() {
     state.settingsError = ''
   }
 
-  function setCategory(value) {
-    state.settings.category = value
+  function toggleCategory(category) {
+    const selected = new Set(state.settings.selectedCategories)
+    if (selected.has(category)) selected.delete(category)
+    else selected.add(category)
+    state.settings.selectedCategories = allCategories.filter((name) => selected.has(name))
+    state.settingsError = ''
+  }
+
+  function selectAllCategories() {
+    state.settings.selectedCategories = [...allCategories]
+    state.settingsError = ''
+  }
+
+  function clearCategories() {
+    state.settings.selectedCategories = []
     state.settingsError = ''
   }
 
@@ -311,6 +342,8 @@ export function useGame() {
     phase,
     players,
     settings,
+    selectedCategories,
+    categorySummary,
     secretWord,
     currentPlayerIndex,
     revealStep,
@@ -333,6 +366,7 @@ export function useGame() {
     isGameActive,
     goHome,
     goHowToPlay,
+    goWriteReview,
     startFromHome,
     setPlayerName,
     addPlayer,
@@ -341,7 +375,9 @@ export function useGame() {
     reorderPlayers,
     continueFromSetup,
     backToSetup,
-    setCategory,
+    toggleCategory,
+    selectAllCategories,
+    clearCategories,
     setDifficulty,
     setImpostorCount,
     setHideImpostorHint,
