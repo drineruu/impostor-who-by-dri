@@ -16,8 +16,8 @@ const { startFromHome, goHowToPlay, goWriteReview } = useGame()
       />
       <div class="min-w-0">
         <p class="font-archivo text-pine">by Dri</p>
-        <h1 class="mt-1 font-display text-[clamp(1.55rem,5.8vw,2.35rem)] leading-none whitespace-nowrap text-ink">
-          Impostor Who?
+        <h1 class="mt-1 font-display text-[clamp(1.35rem,5.2vw,2.1rem)] leading-[0.9] text-ink">
+          Suspicious Keeper
         </h1>
       </div>
     </div>

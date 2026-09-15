@@ -1,8 +1,8 @@
-# Impostor Who? by Dri
+# Suspicious Keeper? by Dri
 
 A mobile-friendly, pass-the-phone social deduction party game. Most players secretly see the same word. One or more players are impostors and do not. After everyone has looked, put the phone down and play the rest of the game yourselves.
 
-Play now at https://drineruu.github.io/impostor-who-by-dri
+Play now at https://drineruu.github.io/suspicious-keeper
 
 ## Game description
 
@@ -80,11 +80,11 @@ npm run deploy
 
 That command:
 
-1. Reads the GitHub repo name from `origin` and sets `VITE_BASE` (for this repo, `/impostor-who-by-dri/`)
+1. Reads the GitHub repo name from `origin` and sets `VITE_BASE` (for this repo, `/suspicious-keeper/`)
 2. Builds the production site into `dist/`
 3. Pushes `dist/` to the `gh-pages` branch
 
-The live site is `https://USERNAME.github.io/REPO_NAME/`, currently [https://drineruu.github.io/impostor-who-by-dri/](https://drineruu.github.io/impostor-who-by-dri/).
+The live site is `https://USERNAME.github.io/REPO_NAME/`, currently [https://drineruu.github.io/suspicious-keeper/](https://drineruu.github.io/suspicious-keeper/).
 
 Daily loop:
 
@@ -106,7 +106,7 @@ One-time Pages setup:
 The base path is configured in one place: [`vite.config.js`](vite.config.js) reads `process.env.VITE_BASE` and defaults to `/` for local development. Override it only if you need a different folder:
 
 ```bash
-VITE_BASE=/impostor-who/ npm run deploy
+VITE_BASE=/suspicious-keeper/ npm run deploy
 ```
 
 Do not hardcode GitHub Pages paths in Vue components.
@@ -153,7 +153,7 @@ Player names are the only data stored in the browser.
 }
 ```
 
-- Stored in `localStorage` under `impostor-who-players`
+- Stored in `localStorage` under `suspicious-keeper-players`
 - Expires after 24 hours (`expiresAt`)
 - Invalid or expired data is removed and the app starts with empty player slots
 - Secret words, impostor assignments, and game phase are never persisted. Refreshing during a game resets the round, not the cached names.
