@@ -30,7 +30,7 @@ const CARD_HEIGHT = 340
 const OPEN_OFFSET = -(CARD_HEIGHT - 28)
 const THRESHOLD = 88
 /** How long the role stays visible after reveal, in milliseconds. */
-const VIEW_MS = 1500
+const VIEW_MS = 2300
 
 const startY = ref(0)
 const dragOffset = ref(0)

@@ -69,7 +69,7 @@ const difficultyOptions = [
           </button>
         </div>
         <p class="mt-3 text-center text-sm text-muted">
-          <span class="font-bold">{{ suggestedImpostorCount }} {{ suggestedImpostorCount === 1 ? 'impostor' : 'impostors' }}</span> is suggested for {{ players.length }} players.
+          <span class="font-bold">{{ suggestedImpostorCount }} {{ suggestedImpostorCount === 1 ? 'impostor is' : 'impostors are' }}</span> suggested for {{ players.length }} players.
         </p>
       </fieldset>
 
