@@ -12,6 +12,8 @@ import {
   getCategories,
   getDefaultImpostorCount,
   normalizeCategorySelection,
+  getRoundWinner,
+  remainingRoleCounts,
   pickImpostorIndexes,
   pickRandomWord,
   pickStarterIndex,
@@ -48,6 +50,9 @@ function createState() {
     currentPlayerIndex: 0,
     revealStep: 'pass',
     hasSeenCurrentRole: false,
+    eliminatedIndexes: [],
+    lastVote: null,
+    winner: null,
     usedWords: [],
     setupError: '',
     settingsError: '',
@@ -69,6 +74,9 @@ function resetRoundState() {
   state.currentPlayerIndex = 0
   state.revealStep = 'pass'
   state.hasSeenCurrentRole = false
+  state.eliminatedIndexes = []
+  state.lastVote = null
+  state.winner = null
   state.setupError = ''
   state.settingsError = ''
   state.quitReturnPhase = null
@@ -104,6 +112,9 @@ function startRound() {
   state.currentPlayerIndex = 0
   state.revealStep = 'pass'
   state.hasSeenCurrentRole = false
+  state.eliminatedIndexes = []
+  state.lastVote = null
+  state.winner = null
   state.settingsError = ''
   state.phase = PHASES.ROLE_REVEAL
   return true
@@ -154,10 +165,28 @@ export function useGame() {
     [
       PHASES.ROLE_REVEAL,
       PHASES.GAME_STARTED,
+      PHASES.VOTE,
+      PHASES.VOTE_RESULT,
       PHASES.REVEAL_CONFIRMATION,
       PHASES.QUIT_CONFIRMATION,
       PHASES.RESULTS,
     ].includes(state.phase),
+  )
+  const eliminatedIndexes = computed(() => state.eliminatedIndexes)
+  const lastVote = computed(() => state.lastVote)
+  const winner = computed(() => state.winner)
+  const remainingCounts = computed(() =>
+    remainingRoleCounts(state.players.length, state.impostorIndexes, state.eliminatedIndexes),
+  )
+  const alivePlayers = computed(() =>
+    state.players
+      .map((name, index) => ({ name, index }))
+      .filter((player) => !state.eliminatedIndexes.includes(player.index)),
+  )
+  const eliminatedPlayers = computed(() =>
+    state.eliminatedIndexes
+      .map((index) => ({ name: state.players[index], index }))
+      .filter((player) => player.name),
   )
 
   function goHome() {
@@ -297,6 +326,48 @@ export function useGame() {
     state.phase = PHASES.GAME_STARTED
   }
 
+  function requestVote() {
+    state.phase = PHASES.VOTE
+  }
+
+  function cancelVote() {
+    state.phase = PHASES.GAME_STARTED
+  }
+
+  function confirmVote(playerIndex) {
+    if (!Number.isInteger(playerIndex)) return
+    if (state.eliminatedIndexes.includes(playerIndex)) return
+    if (playerIndex < 0 || playerIndex >= state.players.length) return
+
+    const wasImpostor = state.impostorIndexes.includes(playerIndex)
+    const eliminated = [...state.eliminatedIndexes, playerIndex]
+    const { remainingImpostors, remainingKeepers } = remainingRoleCounts(
+      state.players.length,
+      state.impostorIndexes,
+      eliminated,
+    )
+    const nextWinner = getRoundWinner(remainingImpostors, remainingKeepers)
+
+    state.eliminatedIndexes = eliminated
+    state.lastVote = {
+      name: state.players[playerIndex],
+      wasImpostor,
+      remainingImpostors,
+      remainingKeepers,
+      winner: nextWinner,
+    }
+    state.winner = nextWinner
+    state.phase = PHASES.VOTE_RESULT
+  }
+
+  function continueAfterVote() {
+    if (state.winner) {
+      state.phase = PHASES.RESULTS
+      return
+    }
+    state.phase = PHASES.GAME_STARTED
+  }
+
   function requestReveal() {
     state.phase = PHASES.REVEAL_CONFIRMATION
   }
@@ -364,6 +435,12 @@ export function useGame() {
     isLastPlayer,
     nextPlayerName,
     isGameActive,
+    eliminatedIndexes,
+    lastVote,
+    winner,
+    remainingCounts,
+    alivePlayers,
+    eliminatedPlayers,
     goHome,
     goHowToPlay,
     goWriteReview,
@@ -385,6 +462,10 @@ export function useGame() {
     markRoleSeen,
     passToNextPlayer,
     startPlaying,
+    requestVote,
+    cancelVote,
+    confirmVote,
+    continueAfterVote,
     requestReveal,
     cancelReveal,
     confirmReveal,

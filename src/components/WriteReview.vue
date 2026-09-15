@@ -27,16 +27,16 @@ function sendReview() {
 
 <template>
   <section class="mx-auto flex w-full max-w-md flex-col px-5 py-6">
-    <h1 class="text-3xl font-black tracking-tight">Write a review</h1>
+    <h1 class="font-display text-3xl tracking-tight">Write a review</h1>
     <p class="mt-2 text-sm text-muted">
       Tell the developer what you thought. This opens your email app so you can send it.
     </p>
 
     <form class="mt-8 flex flex-col gap-5" @submit.prevent="sendReview">
       <div>
-        <label for="review-name" class="text-sm font-bold tracking-wide text-gold uppercase">
+        <label for="review-name" class="eyebrow text-pine">
           Name
-          <span class="font-medium tracking-normal text-muted normal-case">optional</span>
+          <span class="font-sans font-medium tracking-normal text-muted normal-case">optional</span>
         </label>
         <input
           id="review-name"
@@ -45,12 +45,12 @@ function sendReview() {
           maxlength="40"
           autocomplete="name"
           placeholder="Your name"
-          class="mt-2 min-h-14 w-full rounded-2xl border border-panel-edge bg-panel px-4 text-base text-white placeholder:text-muted/60"
+          class="mt-2 min-h-14 w-full rounded-xl border-2 border-ink bg-panel px-4 text-base text-ink placeholder:text-muted/70"
         />
       </div>
 
       <div>
-        <label for="review-message" class="text-sm font-bold tracking-wide text-gold uppercase">
+        <label for="review-message" class="eyebrow text-pine">
           Review
         </label>
         <textarea
@@ -60,7 +60,7 @@ function sendReview() {
           rows="6"
           :maxlength="REVIEW_MAX_LENGTH"
           placeholder="What did you like? What could be better?"
-          class="mt-2 w-full resize-y rounded-2xl border border-panel-edge bg-panel px-4 py-3 text-base leading-relaxed text-white placeholder:text-muted/60"
+          class="mt-2 w-full resize-y rounded-xl border-2 border-ink bg-panel px-4 py-3 text-base leading-relaxed text-ink placeholder:text-muted/70"
         ></textarea>
         <p class="mt-2 text-right text-xs text-muted">
           {{ message.length }} / {{ REVIEW_MAX_LENGTH }}

@@ -39,28 +39,28 @@ const difficultyOptions = [
 
 <template>
   <section class="mx-auto flex w-full max-w-md flex-col px-5 py-6">
-    <h1 class="text-3xl font-black tracking-tight">Game Settings</h1>
+    <h1 class="font-display text-3xl tracking-tight">Game Settings</h1>
     <p class="mt-2 text-sm text-muted">Choose how this round should feel.</p>
 
     <div class="mt-8 space-y-6">
-      <fieldset class="rounded-2xl border border-panel-edge bg-panel p-4">
-        <legend class="px-1 text-sm font-bold tracking-wide text-gold uppercase">Impostors</legend>
+      <fieldset class="rounded-xl border-2 border-ink bg-panel p-4 shadow-game">
+        <legend class="eyebrow px-1 text-pine">Impostors</legend>
         <div class="mt-3 flex items-center gap-3">
           <button
             type="button"
-            class="flex h-14 w-14 items-center justify-center rounded-2xl border border-panel-edge text-2xl hover:border-gold disabled:opacity-30"
+            class="flex h-14 w-14 items-center justify-center rounded-xl border-2 border-ink bg-mist text-2xl hover:bg-gold disabled:border-panel-edge disabled:bg-mist disabled:text-muted"
             :disabled="settings.impostorCount <= 1"
             aria-label="Fewer impostors"
             @click="setImpostorCount(settings.impostorCount - 1)"
           >
             −
           </button>
-          <p class="flex-1 text-center text-4xl font-black" aria-live="polite">
+          <p class="flex-1 text-center font-display text-4xl" aria-live="polite">
             {{ settings.impostorCount }}
           </p>
           <button
             type="button"
-            class="flex h-14 w-14 items-center justify-center rounded-2xl border border-panel-edge text-2xl hover:border-gold disabled:opacity-30"
+            class="flex h-14 w-14 items-center justify-center rounded-xl border-2 border-ink bg-mist text-2xl hover:bg-gold disabled:border-panel-edge disabled:bg-mist disabled:text-muted"
             :disabled="settings.impostorCount >= maxImpostors"
             aria-label="More impostors"
             @click="setImpostorCount(settings.impostorCount + 1)"
@@ -73,26 +73,26 @@ const difficultyOptions = [
         </p>
       </fieldset>
 
-      <fieldset class="rounded-2xl border border-panel-edge bg-panel p-4">
-        <legend class="px-1 text-sm font-bold tracking-wide text-gold uppercase">Impostor hint</legend>
+      <fieldset class="rounded-xl border-2 border-ink bg-panel p-4 shadow-game">
+        <legend class="eyebrow px-1 text-pine">Impostor hint</legend>
         <div class="mt-3 flex items-center justify-between gap-4">
           <div class="min-w-0 text-left">
-            <p class="font-bold text-white">Hide hint from impostors</p>
+            <p class="font-bold text-ink">Hide hint from impostors</p>
             <p class="mt-1 text-sm text-muted">
               When on, impostors get no hint, and a non-impostor starts the round.
             </p>
           </div>
           <button
             type="button"
-            class="relative h-9 w-16 shrink-0 rounded-full transition"
-            :class="settings.hideImpostorHint ? 'bg-gold' : 'bg-panel-edge'"
+            class="relative h-9 w-16 shrink-0 rounded-full border-2 border-ink transition"
+            :class="settings.hideImpostorHint ? 'bg-gold' : 'bg-mist'"
             role="switch"
             :aria-checked="settings.hideImpostorHint"
             aria-label="Hide hint from impostors"
             @click="setHideImpostorHint(!settings.hideImpostorHint)"
           >
             <span
-              class="absolute top-1 left-1 h-7 w-7 rounded-full bg-white transition"
+              class="absolute top-0.5 left-0.5 h-7 w-7 rounded-full border-2 border-ink bg-panel shadow-game transition"
               :class="settings.hideImpostorHint ? 'translate-x-7' : 'translate-x-0'"
             ></span>
           </button>
@@ -100,16 +100,16 @@ const difficultyOptions = [
       </fieldset>
 
       <div>
-        <p class="text-sm font-bold tracking-wide text-gold uppercase">Categories</p>
+        <p class="eyebrow text-pine">Categories</p>
         <button
           type="button"
-          class="mt-2 flex min-h-14 w-full items-center justify-between gap-3 rounded-2xl border border-panel-edge bg-panel px-4 text-left text-base text-white hover:border-gold"
+          class="mt-2 flex min-h-14 w-full items-center justify-between gap-3 rounded-xl border-2 border-ink bg-panel px-4 text-left text-base text-ink shadow-game hover:bg-mist"
           aria-haspopup="dialog"
           :aria-expanded="categoryPickerOpen"
           @click="categoryPickerOpen = true"
         >
           <span>{{ categorySummary }}</span>
-          <span class="text-gold" aria-hidden="true">Choose</span>
+          <span class="font-archivo text-pine" aria-hidden="true">Choose</span>
         </button>
       </div>
 

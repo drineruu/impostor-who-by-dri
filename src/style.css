@@ -1,17 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Trebuchet MS", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-  --color-ink: #0b0818;
-  --color-ink-soft: #140f27;
-  --color-panel: #1b1633;
-  --color-panel-edge: #3a3160;
-  --color-gold: #f4c14a;
-  --color-gold-dark: #c4921e;
-  --color-impostor: #ff4d6d;
-  --color-crew: #5eead4;
-  --color-muted: #b9b0d4;
-  --color-danger: #fb7185;
+  --font-sans: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Bowlby One", "Arial Black", system-ui, sans-serif;
+  --font-archivo: "Archivo Black", "Arial Black", system-ui, sans-serif;
+  --color-ink: #16382c;
+  --color-ink-soft: #214a3a;
+  --color-mist: #eaf4ec;
+  --color-panel: #ffffff;
+  --color-panel-edge: #b7d6c2;
+  --color-gold: #b6ea4a;
+  --color-gold-dark: #9ad12b;
+  --color-pine: #1c7a52;
+  --color-impostor: #e22d55;
+  --color-crew: #12856d;
+  --color-muted: #5d7a6b;
+  --color-danger: #d12748;
+  --shadow-game: 3px 3px 0 #16382c;
 }
 
 html,
@@ -29,11 +34,12 @@ html.game-locked #app {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(1200px 600px at 50% -10%, rgba(244, 193, 74, 0.12), transparent 50%),
-    radial-gradient(800px 500px at 100% 100%, rgba(255, 77, 109, 0.08), transparent 45%),
-    linear-gradient(180deg, var(--color-ink-soft), var(--color-ink));
-  color: #f8f5ff;
+  background-color: var(--color-mist);
+  background-image:
+    radial-gradient(rgba(22, 56, 44, 0.06) 1px, transparent 1px),
+    linear-gradient(180deg, #f3faf4, var(--color-mist));
+  background-size: 18px 18px, auto;
+  color: var(--color-ink);
   font-family: var(--font-sans);
 }
 
@@ -46,9 +52,23 @@ body {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
-select:focus-visible {
-  outline: 3px solid var(--color-gold);
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--color-pine);
   outline-offset: 3px;
+}
+
+.eyebrow {
+  font-family: var(--font-archivo);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.card {
+  border: 2px solid var(--color-ink);
+  background: var(--color-panel);
+  box-shadow: var(--shadow-game);
 }
 
 .touch-none {

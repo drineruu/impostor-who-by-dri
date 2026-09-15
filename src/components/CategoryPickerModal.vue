@@ -66,14 +66,14 @@ onBeforeUnmount(() => {
         role="dialog"
         aria-modal="true"
         aria-labelledby="category-picker-title"
-        class="flex max-h-[85svh] w-full max-w-md flex-col rounded-t-3xl border border-panel-edge bg-panel pb-[env(safe-area-inset-bottom)] sm:rounded-3xl"
+        class="flex max-h-[85svh] w-full max-w-md flex-col rounded-t-2xl border-2 border-ink bg-panel pb-[env(safe-area-inset-bottom)] shadow-game sm:rounded-2xl"
       >
         <div class="px-5 pt-5">
           <h2
             id="category-picker-title"
             ref="headingRef"
             tabindex="-1"
-            class="text-2xl font-black tracking-tight outline-none"
+            class="font-display text-2xl tracking-tight outline-none"
           >
             Categories
           </h2>
@@ -81,7 +81,7 @@ onBeforeUnmount(() => {
           <div class="mt-4 flex gap-2">
             <button
               type="button"
-              class="min-h-11 flex-1 rounded-2xl border border-panel-edge px-3 text-sm font-bold text-white hover:border-gold disabled:opacity-40"
+              class="min-h-11 flex-1 rounded-xl border-2 border-ink px-3 font-archivo text-sm text-ink hover:bg-mist disabled:opacity-40"
               :disabled="selected.length === categories.length && categories.length > 0"
               @click="emit('select-all')"
             >
@@ -89,7 +89,7 @@ onBeforeUnmount(() => {
             </button>
             <button
               type="button"
-              class="min-h-11 flex-1 rounded-2xl border border-panel-edge px-3 text-sm font-bold text-white hover:border-gold disabled:opacity-40"
+              class="min-h-11 flex-1 rounded-xl border-2 border-ink px-3 font-archivo text-sm text-ink hover:bg-mist disabled:opacity-40"
               :disabled="selected.length === 0"
               @click="emit('clear')"
             >
@@ -104,21 +104,21 @@ onBeforeUnmount(() => {
               type="button"
               role="checkbox"
               :aria-checked="isSelected(category)"
-              class="flex min-h-14 w-full items-center gap-3 rounded-2xl px-3 text-left hover:bg-ink"
+              class="flex min-h-14 w-full items-center gap-3 rounded-xl px-3 text-left hover:bg-mist"
               @click="emit('toggle', category)"
             >
               <span
                 class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border"
                 :class="
                   isSelected(category)
-                    ? 'border-gold bg-gold text-ink'
-                    : 'border-panel-edge bg-ink text-transparent'
+                    ? 'border-ink bg-gold text-ink'
+                    : 'border-ink bg-panel text-transparent'
                 "
                 aria-hidden="true"
               >
                 ✓
               </span>
-              <span class="font-bold text-white">{{ category }}</span>
+              <span class="font-bold text-ink">{{ category }}</span>
             </button>
           </li>
         </ul>

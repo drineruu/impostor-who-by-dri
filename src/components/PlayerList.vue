@@ -153,13 +153,13 @@ onBeforeUnmount(() => {
         v-for="(player, index) in players"
         :key="index"
         :data-player-index="index"
-        class="rounded-2xl border bg-panel p-3 transition"
+        class="rounded-xl border-2 bg-panel p-3 transition"
         :class="
           dragIndex === index
-            ? 'border-dashed border-gold/50 bg-ink/50'
+            ? 'border-dashed border-ink bg-mist'
             : dragIndex !== null && overIndex === index
-              ? 'border-gold ring-2 ring-gold/40'
-              : 'border-panel-edge'
+              ? 'border-pine ring-2 ring-gold'
+              : 'border-ink'
         "
       >
         <div
@@ -168,7 +168,7 @@ onBeforeUnmount(() => {
         >
           <button
             type="button"
-            class="flex h-12 w-10 shrink-0 cursor-grab touch-none flex-col items-center justify-center gap-1 rounded-xl text-muted hover:bg-ink hover:text-white active:cursor-grabbing"
+            class="flex h-12 w-10 shrink-0 cursor-grab touch-none flex-col items-center justify-center gap-1 rounded-lg text-muted hover:bg-mist hover:text-ink active:cursor-grabbing"
             :aria-label="`Drag to rearrange player ${index + 1}`"
             :aria-grabbed="dragIndex === index"
             @pointerdown="onHandlePointerDown($event, index)"
@@ -178,7 +178,7 @@ onBeforeUnmount(() => {
               <span v-for="dot in 6" :key="dot" class="h-1.5 w-1.5 rounded-full bg-current"></span>
             </span>
           </button>
-          <span class="w-6 text-center text-sm font-bold text-gold" aria-hidden="true">
+          <span class="w-6 text-center text-sm font-bold text-pine" aria-hidden="true">
             {{ index + 1 }}
           </span>
           <label class="sr-only" :for="`player-name-${index}`">Player {{ index + 1 }} name</label>
@@ -190,12 +190,12 @@ onBeforeUnmount(() => {
             autocomplete="off"
             autocapitalize="words"
             :placeholder="`Player ${index + 1}`"
-            class="min-h-12 min-w-0 flex-1 rounded-xl border border-transparent bg-ink px-3 text-base text-white placeholder:text-muted/60"
+            class="min-h-12 min-w-0 flex-1 rounded-lg border-2 border-ink bg-mist px-3 text-base text-ink placeholder:text-muted/70"
             @input="emit('update-name', index, $event.target.value)"
           />
           <button
             type="button"
-            class="flex h-12 w-12 items-center justify-center rounded-xl text-lg text-danger hover:bg-ink disabled:opacity-30"
+            class="flex h-12 w-12 items-center justify-center rounded-lg text-lg text-danger hover:bg-mist disabled:opacity-30"
             :disabled="!canRemove"
             :aria-label="`Remove player ${index + 1}`"
             @click="emit('remove', index)"
@@ -207,7 +207,7 @@ onBeforeUnmount(() => {
     </ul>
     <button
       type="button"
-      class="mt-4 min-h-12 w-full rounded-2xl border border-dashed border-gold/40 px-4 font-bold text-gold hover:bg-gold/10 disabled:cursor-not-allowed disabled:opacity-40"
+      class="mt-4 min-h-12 w-full rounded-xl border-2 border-dashed border-ink px-4 font-archivo text-pine hover:bg-gold/40 disabled:cursor-not-allowed disabled:opacity-40"
       :disabled="!canAdd"
       @click="emit('add')"
     >
@@ -217,23 +217,23 @@ onBeforeUnmount(() => {
     <Teleport to="body">
       <div
         v-if="ghost"
-        class="rounded-2xl border border-gold bg-panel p-3 shadow-[0_16px_40px_rgba(0,0,0,0.45)]"
+        class="rounded-xl border-2 border-ink bg-panel p-3 shadow-game"
         :style="ghostStyle"
       >
         <div class="flex items-center gap-2">
           <span
-            class="flex h-12 w-10 shrink-0 items-center justify-center rounded-xl text-gold"
+            class="flex h-12 w-10 shrink-0 items-center justify-center rounded-xl text-pine"
             aria-hidden="true"
           >
             <span class="grid grid-cols-2 gap-1">
               <span v-for="dot in 6" :key="dot" class="h-1.5 w-1.5 rounded-full bg-current"></span>
             </span>
           </span>
-          <span class="w-6 text-center text-sm font-bold text-gold" aria-hidden="true">
+          <span class="w-6 text-center text-sm font-bold text-pine" aria-hidden="true">
             {{ ghost.number }}
           </span>
           <span
-            class="flex min-h-12 min-w-0 flex-1 items-center rounded-xl bg-ink px-3 text-base text-white"
+            class="flex min-h-12 min-w-0 flex-1 items-center rounded-lg bg-mist px-3 text-base text-ink"
           >
             {{ ghost.name || `Player ${ghost.number}` }}
           </span>

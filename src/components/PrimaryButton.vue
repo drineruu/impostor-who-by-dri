@@ -16,12 +16,12 @@ defineProps({
 
 const variantClass = {
   primary:
-    'bg-gold text-ink hover:bg-gold-dark disabled:bg-panel-edge disabled:text-muted',
+    'border-2 border-ink bg-gold text-ink shadow-game hover:bg-gold-dark disabled:border-panel-edge disabled:bg-panel-edge disabled:text-muted disabled:shadow-none',
   secondary:
-    'border border-panel-edge bg-panel text-white hover:border-gold hover:text-gold disabled:text-muted',
+    'border-2 border-ink bg-panel text-ink shadow-game hover:bg-mist disabled:text-muted disabled:shadow-none',
   danger:
-    'border border-danger/40 bg-transparent text-danger hover:bg-danger/10 disabled:text-muted',
-  ghost: 'bg-transparent text-muted hover:text-white disabled:text-muted',
+    'border-2 border-danger bg-panel text-danger hover:bg-danger/10 disabled:text-muted',
+  ghost: 'bg-transparent text-muted hover:text-ink disabled:text-muted',
 }
 </script>
 
@@ -29,7 +29,7 @@ const variantClass = {
   <button
     :type="type"
     :disabled="disabled"
-    class="inline-flex min-h-14 w-full items-center justify-center rounded-2xl px-5 text-base font-bold tracking-wide transition disabled:cursor-not-allowed"
+    class="inline-flex min-h-14 w-full items-center justify-center rounded-xl px-5 font-archivo text-base tracking-wide transition disabled:cursor-not-allowed"
     :class="variantClass[variant] || variantClass.primary"
   >
     <slot />
