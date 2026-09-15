@@ -48,12 +48,12 @@ onBeforeUnmount(() => {
       aria-labelledby="refresh-warning-title"
       @click.self="emit('cancel')"
     >
-      <div class="w-full max-w-md rounded-3xl border border-panel-edge bg-panel px-5 py-7 text-center">
+      <div class="w-full max-w-md rounded-2xl border-2 border-ink bg-panel px-5 py-7 text-center shadow-game">
         <h2
           id="refresh-warning-title"
           ref="headingRef"
           tabindex="-1"
-          class="text-3xl font-black tracking-tight outline-none"
+          class="font-display text-3xl tracking-tight outline-none"
         >
           Refresh this page?
         </h2>

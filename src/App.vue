@@ -14,6 +14,8 @@ import PrimaryButton from './components/PrimaryButton.vue'
 import RefreshConfirmModal from './components/RefreshConfirmModal.vue'
 import RevealConfirmation from './components/RevealConfirmation.vue'
 import RoleReveal from './components/RoleReveal.vue'
+import Vote from './components/Vote.vue'
+import VoteResult from './components/VoteResult.vue'
 import WriteReview from './components/WriteReview.vue'
 
 const { phase, PHASES, confirmQuit, cancelQuit, isGameActive } = useGame()
@@ -47,6 +49,8 @@ onUnmounted(() => {
       <GameSettings v-else-if="phase === PHASES.SETTINGS" />
       <RoleReveal v-else-if="phase === PHASES.ROLE_REVEAL" />
       <GameStarted v-else-if="phase === PHASES.GAME_STARTED" />
+      <Vote v-else-if="phase === PHASES.VOTE" />
+      <VoteResult v-else-if="phase === PHASES.VOTE_RESULT" />
       <RevealConfirmation v-else-if="phase === PHASES.REVEAL_CONFIRMATION" />
       <ConfirmDialog
         v-else-if="phase === PHASES.QUIT_CONFIRMATION"
@@ -65,8 +69,8 @@ onUnmounted(() => {
       :style="{ transform: `translateY(${Math.max(0, pullDistance - 24)}px)` }"
     >
       <p
-        class="rounded-full border border-gold/40 bg-panel px-4 py-2 text-sm font-bold shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
-        :class="pullDistance >= pullThreshold ? 'text-gold' : 'text-muted'"
+        class="rounded-full border-2 border-ink bg-panel px-4 py-2 text-sm font-bold shadow-game"
+        :class="pullDistance >= pullThreshold ? 'text-pine' : 'text-muted'"
       >
         {{
           pullDistance >= pullThreshold

@@ -6,6 +6,8 @@ export const PHASES = {
   SETTINGS: 'SETTINGS',
   ROLE_REVEAL: 'ROLE_REVEAL',
   GAME_STARTED: 'GAME_STARTED',
+  VOTE: 'VOTE',
+  VOTE_RESULT: 'VOTE_RESULT',
   REVEAL_CONFIRMATION: 'REVEAL_CONFIRMATION',
   QUIT_CONFIRMATION: 'QUIT_CONFIRMATION',
   RESULTS: 'RESULTS',
@@ -187,4 +189,25 @@ export function pickStarterIndex(playerCount, impostorIndexes, hideImpostorHint)
 
   const choices = pool.length > 0 ? pool : Array.from({ length: playerCount }, (_, index) => index)
   return choices[Math.floor(Math.random() * choices.length)]
+}
+
+export function remainingRoleCounts(playerCount, impostorIndexes, eliminatedIndexes = []) {
+  const eliminated = new Set(eliminatedIndexes)
+  const impostors = new Set(impostorIndexes)
+  let remainingImpostors = 0
+  let remainingKeepers = 0
+
+  for (let index = 0; index < playerCount; index += 1) {
+    if (eliminated.has(index)) continue
+    if (impostors.has(index)) remainingImpostors += 1
+    else remainingKeepers += 1
+  }
+
+  return { remainingImpostors, remainingKeepers }
+}
+
+export function getRoundWinner(remainingImpostors, remainingKeepers) {
+  if (remainingImpostors <= 0) return 'keepers'
+  if (remainingImpostors >= remainingKeepers) return 'impostors'
+  return null
 }

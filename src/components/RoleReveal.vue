@@ -55,15 +55,14 @@ watch([revealStep, currentPlayerIndex], () => {
     </div>
 
     <div class="flex min-h-0 flex-1 flex-col justify-center py-4">
-      <div v-if="revealStep === 'everyoneReady'" class="fade-up rounded-3xl border border-panel-edge bg-panel p-6 text-center">
-        <p class="text-2xl font-bold tracking-[0.24em] text-gold uppercase">Everyone has their role!</p>
-        <!-- <p class="mt-6 text-sm font-bold tracking-[0.24em] text-gold uppercase">Starts the round</p> -->
-        <p class="mt-12 text-xl font-black text-white"><span class="font-bold text-gold">{{ starterName }}</span> will start the round.</p>
+      <div v-if="revealStep === 'everyoneReady'" class="fade-up rounded-xl border-2 border-ink bg-panel p-6 text-center shadow-game">
+        <p class="font-display text-3xl leading-tight text-ink">Everyone has their role!</p>
+        <p class="mt-8 text-xl font-bold text-ink"><span class="text-pine">{{ starterName }}</span> will start the round.</p>
         <p class="mt-4 text-base text-muted">
           {{
             showImpostorHint
               ? 'Give the first clue, then go around the group.'
-              : 'Give the first clue. The first speaker is not an impostor.'
+              : 'Give the first clue. The first speaker is a Keeper.'
           }}
         </p>
         <div class="mt-8">
@@ -72,8 +71,8 @@ watch([revealStep, currentPlayerIndex], () => {
       </div>
 
       <div v-else :key="currentPlayerIndex" class="text-center">
-        <p class="text-sm font-bold tracking-[0.24em] text-gold uppercase">Pass the phone to</p>
-        <h1 ref="headingRef" tabindex="-1" class="mt-3 text-4xl font-black tracking-tight text-white">
+        <p class="eyebrow text-pine">Pass the phone to</p>
+        <h1 ref="headingRef" tabindex="-1" class="mt-3 font-display text-4xl tracking-tight text-ink">
           {{ currentPlayerName }}
         </h1>
 

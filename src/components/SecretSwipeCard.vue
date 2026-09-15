@@ -119,7 +119,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div
-    class="relative overflow-hidden rounded-3xl border border-panel-edge bg-ink"
+    class="relative overflow-hidden rounded-xl border-2 border-ink bg-ink-soft shadow-game"
     :style="{ height: `${CARD_HEIGHT}px` }"
   >
     <div
@@ -127,25 +127,25 @@ onBeforeUnmount(() => {
       :aria-hidden="!isRevealing"
     >
       <template v-if="isRevealing && isImpostor">
-        <p class="text-sm font-bold tracking-[0.24em] text-impostor uppercase">Your role</p>
-        <p class="mt-3 text-5xl font-black tracking-tight text-impostor">Impostor</p>
+        <p class="eyebrow text-impostor">Your role</p>
+        <p class="mt-3 font-display text-5xl tracking-tight text-impostor">Impostor</p>
         <template v-if="showHint && hintWord">
-          <p class="mt-6 text-sm font-bold tracking-[0.24em] text-gold uppercase">Hint</p>
-          <p class="mt-2 text-3xl font-black text-white">{{ hintWord }}</p>
-          <p class="mt-4 max-w-xs text-base leading-relaxed text-muted">
+          <p class="mt-6 eyebrow text-gold">Hint</p>
+          <p class="mt-2 font-display text-3xl text-white">{{ hintWord }}</p>
+          <p class="mt-4 max-w-xs text-base leading-relaxed text-white/65">
             You don't get the secret word. Use this hint to blend in.
           </p>
         </template>
-        <p v-else class="mt-5 max-w-xs text-base leading-relaxed text-muted">
+        <p v-else class="mt-5 max-w-xs text-base leading-relaxed text-white/65">
           You don't get the secret word. Listen closely and blend in.
         </p>
       </template>
       <template v-else-if="isRevealing">
-        <p class="text-sm font-bold tracking-[0.24em] text-crew uppercase">Your role</p>
-        <p class="mt-3 text-3xl font-black tracking-tight text-crew">Player</p>
-        <p class="mt-6 text-sm font-bold tracking-[0.24em] text-gold uppercase">Secret word</p>
-        <p class="mt-2 text-4xl font-black text-white">{{ secretWord }}</p>
-        <p class="mt-5 max-w-xs text-base leading-relaxed text-muted">
+        <p class="eyebrow text-crew">Your role</p>
+        <p class="mt-3 font-display text-3xl tracking-tight text-crew">Keeper</p>
+        <p class="mt-6 eyebrow text-gold">Secret word</p>
+        <p class="mt-2 font-display text-4xl text-white">{{ secretWord }}</p>
+        <p class="mt-5 max-w-xs text-base leading-relaxed text-white/65">
           Memorize this word. Don't show anyone.
         </p>
       </template>
@@ -165,9 +165,9 @@ onBeforeUnmount(() => {
       @keydown.enter.prevent="revealWithKeyboard"
       @keydown.space.prevent="revealWithKeyboard"
     >
-      <span class="mb-5 h-1.5 w-12 rounded-full bg-gold/80" aria-hidden="true"></span>
+      <span class="mb-5 h-1.5 w-12 rounded-full bg-pine" aria-hidden="true"></span>
       <span
-        class="swipe-cue text-gold"
+        class="swipe-cue text-pine"
         :class="{ 'swipe-cue-paused': isDragging || isOpen }"
         aria-hidden="true"
       >
@@ -206,7 +206,7 @@ onBeforeUnmount(() => {
           </g>
         </svg>
       </span>
-      <span class="mt-3 text-lg font-black tracking-tight text-white">Swipe up</span>
+      <span class="mt-3 font-display text-lg tracking-tight text-ink">Swipe up</span>
       <span class="mt-2 text-sm text-muted">to see your role</span>
     </button>
   </div>

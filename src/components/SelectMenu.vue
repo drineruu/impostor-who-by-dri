@@ -85,12 +85,12 @@ onBeforeUnmount(() => {
 
 <template>
   <div ref="rootRef">
-    <label :id="labelId" :for="id" class="text-sm font-bold tracking-wide text-gold uppercase">{{ label }}</label>
+    <label :id="labelId" :for="id" class="eyebrow text-pine">{{ label }}</label>
     <button
       :id="id"
       type="button"
-      class="mt-2 flex min-h-14 w-full items-center justify-between gap-3 rounded-2xl border bg-panel px-4 text-left text-base text-white transition"
-      :class="open ? 'border-gold' : 'border-panel-edge hover:border-gold'"
+      class="mt-2 flex min-h-14 w-full items-center justify-between gap-3 rounded-xl border-2 bg-panel px-4 text-left text-base text-ink shadow-game transition"
+      :class="open ? 'border-pine' : 'border-ink hover:bg-mist'"
       role="combobox"
       aria-haspopup="listbox"
       :aria-expanded="open"
@@ -99,13 +99,13 @@ onBeforeUnmount(() => {
       @click="toggle"
     >
       <span>{{ selected?.label }}</span>
-      <span class="text-gold transition" :class="{ 'rotate-180': open }" aria-hidden="true">▾</span>
+      <span class="text-pine transition" :class="{ 'rotate-180': open }" aria-hidden="true">▾</span>
     </button>
 
     <ul
       v-if="open"
       :id="listId"
-      class="mt-2 w-full overflow-hidden rounded-2xl border border-gold/40 bg-panel py-1"
+      class="mt-2 w-full overflow-hidden rounded-xl border-2 border-ink bg-panel py-1 shadow-game"
       role="listbox"
       :aria-labelledby="labelId"
     >
@@ -116,8 +116,8 @@ onBeforeUnmount(() => {
           class="flex min-h-12 w-full items-center justify-between px-4 text-left text-base transition"
           :class="
             option.value === modelValue
-              ? 'bg-gold/15 font-bold text-gold'
-              : 'text-white hover:bg-ink'
+              ? 'bg-gold/40 font-bold text-ink'
+              : 'text-ink hover:bg-mist'
           "
           :aria-selected="option.value === modelValue"
           @click="choose(option.value)"

@@ -1,4 +1,4 @@
-export const PLAYER_STORAGE_KEY = 'impostor-who-players'
+export const PLAYER_STORAGE_KEY = 'suspicious-keeper-players'
 export const PLAYER_CACHE_TTL_MS = 24 * 60 * 60 * 1000
 
 export function safeParse(value) {

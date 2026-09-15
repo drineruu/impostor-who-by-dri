@@ -9,18 +9,12 @@ defineProps({
 
 <template>
   <header class="px-5 pt-5">
-    <div class="mx-auto max-w-md text-center">
+    <div class="mx-auto max-w-md">
       <p
-        class="font-black tracking-tight text-white"
-        :class="compact ? 'text-xl' : 'text-3xl'"
+        class="font-display tracking-tight text-ink"
+        :class="compact ? 'text-xl leading-none' : 'text-3xl leading-none'"
       >
-        Impostor Who?
-      </p>
-      <p
-        class="mt-1 font-medium tracking-[0.16em] text-muted/70 uppercase"
-        :class="compact ? 'text-[10px]' : 'text-[11px]'"
-      >
-        by Dri
+        Suspicious Keeper
       </p>
     </div>
   </header>
